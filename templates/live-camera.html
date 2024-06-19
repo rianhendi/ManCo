@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Camera</title>
+    <style>
+        /* Global Styles */
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          font-family: 'Montserrat', sans-serif;
+          background-color: #f7f7f7;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+          position: relative;
+        }
+
+        /* Header Styles */
+        h1 {
+          font-size: 36px;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 20px;
+        }
+
+        /* Camera Container Styles */
+        #camera-container {
+          width: 50%;
+          margin: 40px auto;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Live Camera Styles */
+        #live-camera {
+          width: 100%;
+          height: 300px;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+
+        /* Object Count Styles */
+        #object-count {
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          margin-top: 20px;
+        }
+
+        /* Button Styles */
+        .back-button {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          padding: 10px 20px;
+          background-color: #333;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          #camera-container {
+            width: 80%;
+          }
+        }
+
+        @media (max-width: 480px) {
+          #camera-container {
+            width: 90%;
+          }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        socket.on('object_count', function(data) {
+            var numMangoes = data.num_mangoes;
+            document.getElementById('object-count').innerHTML = 'Jumlah Mangga: ' + numMangoes;
+        });
+    </script>
+</head>
+<body>
+    <button onclick="window.history.back()" class="back-button">Back</button>
+    <h1>Live Camera</h1>
+    <div id="camera-container">
+        <img id="live-camera" src="{{ url_for('video_feed') }}" alt="Live Camera">
+    </div>
+    <p id="object-count"></p>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hasil Deteksi Objek</title>
+</head>
+<body>
+    <h1>Hasil Deteksi Objek</h1>
+    <div>
+        <video width="640" height="480" controls>
+            <source src="{{ url_for('uploaded_file', filename=results) }}" type="video/mp4">
+        </video>
+    </div>
+</body>
+</html>
